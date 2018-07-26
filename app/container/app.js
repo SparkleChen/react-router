@@ -6,7 +6,7 @@ export class App extends React.Component {
     }
     render() {
         return (
-            <div>这是一个react-router example
+            <div>this is a react-router example
                 {
                     this.props.children
                 }
