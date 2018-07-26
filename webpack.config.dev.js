@@ -3,13 +3,15 @@ const webpack =require('webpack');
 
 module.exports = {
     entry: {
-        app:"./app/index.js"
+        app:"./app/index.js",
+        vendor:['react','react-dom','react-router-dom']
     },
     output: {
         path: "/dist",
         filename: "[name].[hash:8].bundle.js"
     },
-    devtool:"inline-source-map",
+    // devtool:"inline-source-map",
+    devtool:"source-map",
     devServer: {
         hot:true,
         inline:true,
@@ -37,7 +39,14 @@ module.exports = {
         new HtmlWebpackPlugin({
             template:'app/index.html'
         }),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor"
+          }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "manifest",
+            minChunks: Infinity
+        })
     ],
     resolve: {
         extensions: ['.css', '.js', '.jsx'],
